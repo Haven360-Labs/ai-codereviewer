@@ -192,7 +192,8 @@ function main() {
         const prDetails = yield getPRDetails();
         let diff;
         const eventData = JSON.parse((0, fs_1.readFileSync)((_a = process.env.GITHUB_EVENT_PATH) !== null && _a !== void 0 ? _a : "", "utf8"));
-        if (eventData.action === "opened") {
+        console.log("using this repo ===?????>>>>");
+        if (eventData.action === "labeled" && (eventData.label.name == 'code/ai-review')) {
             diff = yield getDiff(prDetails.owner, prDetails.repo, prDetails.pull_number);
         }
         else if (eventData.action === "synchronize") {
@@ -210,7 +211,7 @@ function main() {
             diff = String(response.data);
         }
         else {
-            console.log("Unsupported event:", process.env.GITHUB_EVENT_NAME);
+            console.log("Unsupported event ===>>>>> :", process.env.GITHUB_EVENT_NAME);
             return;
         }
         if (!diff) {
